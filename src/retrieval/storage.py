@@ -7,7 +7,7 @@ class VectorRetrieval:
         self.persist_directory = persist_directory
         self.embedding_model = embedding_model
 
-    def load_from_disk(self) -> Chroma:
+    def _load_from_disk(self) -> Chroma:
         embedding_function = SentenceTransformerEmbeddings(
             model_name=self.embedding_model
         )
@@ -16,3 +16,8 @@ class VectorRetrieval:
             embedding_function=embedding_function
         )
         return db
+
+    def retrieve_documents(self, enriched_question):
+        db = self._load_from_disk()
+        retriever = db.as_retriever(search_type="mmr")
+        return retriever.invoke(enriched_question)
