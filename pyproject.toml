@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "tel-rag"
+version = "0.1.0"
+description = "framework based on rag to answer MCQ related to different classes of telecom knowledge domains"
+authors = ["Andolsi-Hamza05 <hamza.landolsi@essai.ucar.tn>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+langchain = "^0.2.9"
+langchain-community = "^0.2.7"
+python-docx = "^1.1.2"
+langchain-chroma = "^0.1.2"
+docx2txt = "^0.8"
+sentence-transformers = "^3.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
