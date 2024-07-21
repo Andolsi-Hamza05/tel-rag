@@ -1,3 +1,4 @@
+import re
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.chat_models import ChatOllama
@@ -62,6 +63,23 @@ def answer_question(query, option1, option2, option3, option4):
     return result
 
 
+def get_option_and_explanation(result):
+    # Define regex patterns
+    option_pattern = r'\boption\d+\s*:\s*[^:\n]+'
+    explanation_pattern = r'\bexplanation\s*:\s*.+'
+
+    # Find matches for options
+    answer = result.lower()
+    option = re.findall(option_pattern, answer, re.IGNORECASE)
+
+    # Find the explanation
+    explanation_match = re.search(explanation_pattern, answer, re.IGNORECASE)
+    if explanation_match:
+        explanation = explanation_match.group()
+
+    return option, explanation
+
+
 if __name__ == "__main__":
     query = "When can the setting of the Privacy exception list be changed?"
     option1 = "Never"
@@ -70,4 +88,5 @@ if __name__ == "__main__":
     option4 = "Only with operator permission"
 
     answer = answer_question(query, option1, option2, option3, option4)
+    print("------------------")
     print(answer)
